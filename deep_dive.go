@@ -22,12 +22,14 @@ type ShopDB struct {
 func (sdb *ShopDB) CountCustomers(since time.Time) (int, error) {
 	var count int
 	err := sdb.QueryRow("SELECT count(*) FROM customers WHERE timestamp > $1", since).Scan(&count)
+  fmt.Printf("Customers : %v \n",count)
 	return count, err
 }
 
 func (sdb *ShopDB) CountSales(since time.Time) (int, error) {
 	var count int
 	err := sdb.QueryRow("SELECT count(*) FROM sales WHERE timestamp > $1", since).Scan(&count)
+  fmt.Printf("Sales : %v \n",count)
 	return count, err
 }
 
@@ -46,7 +48,7 @@ func Shop() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(sr)
+  fmt.Printf("Sales per customer per day: %v \n",sr)
 
 }
 
@@ -65,6 +67,6 @@ func calculateSalesPerCustomer(sm ShopModal) (string, error) {
 	}
 
 	final := float64(sales) / float64(customers)
-	return fmt.Sprintf(".2%f", final), nil
+	return fmt.Sprintf("%.2f", final), nil
 
 }
