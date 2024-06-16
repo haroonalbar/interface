@@ -25,7 +25,7 @@ func TestSalesPerCustomer(t *testing.T) {
 	}
 
 	exp := "0.33"
-	if sr == exp {
+	if sr != exp {
 		t.Fatalf("We got %v, expected is %v", sr, exp)
 	}
 }
